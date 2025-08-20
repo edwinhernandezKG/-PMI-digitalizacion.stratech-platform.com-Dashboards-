@@ -31,7 +31,14 @@
       background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.55));
     }
 
-    .wrap { position: relative; min-height: 100%; display: grid; place-items: center; padding: 24px; }
+    /* Contenedor principal centrado */
+    .wrap { 
+      position: relative; 
+      min-height: 100%; 
+      display: grid; 
+      place-items: center; 
+      padding: 24px; 
+    }
 
     .card {
       width: 100%; max-width: 480px; background: rgba(255,255,255,.06);
@@ -62,33 +69,44 @@
     .powered { margin-top: 15px; text-align: center; font-size: 0.85rem; color: var(--muted); }
 
     .menu {
-      display: none; padding: 24px; width: 100%; height: 100vh;
+      display: none; 
+      width: 100%; 
+      height: 100vh;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .menu__inner {
-      height: 100%; display: grid; grid-template-rows: auto 1fr; gap: 18px;
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      gap: 18px;
     }
 
     .topbar {
       display: flex; justify-content: space-between; align-items: center;
       background: rgba(255,255,255,.08); padding: 12px 16px; border-radius: 16px;
+      width: 100%; max-width: 1300px;
     }
 
     /* 🚀 Contenedor con medidas fijas en PX */
     .report-container {
-      width: 1300px;   /* ajusta al tamaño deseado */
-      height: 720px;   /* ajusta al tamaño deseado */
+      width: 1300px;   
+      height: 720px;   
       overflow: hidden;
       position: relative;
-      margin: 0 auto;  /* centrado */
+      margin: 0 auto;  
     }
 
     iframe.report {
       width: 1300px;
       height: 720px;
       border: none;
-      transform: scale(1.20);        /* 🔍 Más zoom para tapar la franja */
-      transform-origin: top center;  /* desde arriba */
+      transform: scale(1.20);        
+      transform-origin: top center;  
     }
 
     .hidden { display: none !important; }
@@ -178,7 +196,7 @@
 
     function showMenu(userKey) {
       loginCard.classList.add('hidden');
-      menu.style.display = 'block';
+      menu.style.display = 'flex';
       welcomeMsg.textContent = `Bienvenido, ${userKey.charAt(0).toUpperCase() + userKey.slice(1)}`;
       reportFrame.src = REPORT_URLS[userKey];
     }
