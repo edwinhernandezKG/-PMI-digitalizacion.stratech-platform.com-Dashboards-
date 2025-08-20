@@ -85,7 +85,7 @@ input[type="text"], input[type="password"] {
 .powered { margin-top: 15px; text-align: center; font-size: 0.85rem; color: var(--muted); }
 
 .menu { display: none; padding: 24px; width: 100%; height: 100vh; }
-.menu__inner { height: 100%; display: grid; grid-template-rows: auto 1fr; gap: 18px; }
+.menu__inner { height: 100%; display: flex; flex-direction: column; }
 .topbar {
   display: flex; justify-content: space-between; align-items: center;
   background: rgba(255,255,255,.08);
@@ -108,13 +108,12 @@ iframe.report {
   transform-origin: top center;  
 }
 
-/* 🔧 Forzar centrado */
-.menu__inner {
+/* 🔧 Forzar centrado horizontal + vertical */
+.report-wrapper {
+  flex: 1;
   display: flex;
-  flex-direction: column;
-}
-.menu__inner .report-container {
-  margin: 20px auto; /* se centra horizontal */
+  justify-content: center;
+  align-items: center;
 }
 
 .hidden { display: none !important; }
@@ -164,10 +163,14 @@ iframe.report {
         </div>
         <button id="logoutBtn" class="btn" style="background: linear-gradient(180deg,#ff7a7a,#ff5858);">Cerrar sesión</button>
       </div>
-      <!-- 🚀 Contenedor con zoom -->
-      <div class="report-container">
-        <iframe id="reportFrame" class="report"></iframe>
+
+      <!-- 🚀 Contenedor con centrado -->
+      <div class="report-wrapper">
+        <div class="report-container">
+          <iframe id="reportFrame" class="report"></iframe>
+        </div>
       </div>
+
     </div>
   </section>
 
@@ -232,3 +235,4 @@ try {
 </script>
 </body>
 </html>
+
