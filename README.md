@@ -20,12 +20,11 @@
     html, body {
       height: 100%;
       margin: 0;
-      display: flex;
+      display: flex;              /* ✅ centrado de toda la página */
       justify-content: center;
       align-items: center;
       font-family: system-ui, sans-serif;
       color: var(--text);
-      overflow-x: auto; /* 👈 habilita scroll horizontal */
     }
 
     .bg {
@@ -47,7 +46,7 @@
       place-items: center;
       padding: 24px;
       width: 100%;
-      max-width: 1920px;
+      max-width: 1920px;  /* ✅ ajustado al nuevo ancho */
       margin: 0 auto;
     }
 
@@ -92,12 +91,13 @@
       background: rgba(255,255,255,.08); padding: 12px 16px; border-radius: 16px;
     }
 
+    /* 🚀 Contenedor en 1920x1080 */
     .report-container {
       width: 1920px;
       height: 1080px;
       overflow: hidden;
       position: relative;
-      margin: 0 auto;
+      margin: 0 auto;  /* ✅ centrado */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -107,8 +107,8 @@
       width: 1920px;
       height: 1080px;
       border: none;
-      transform: scale(1.12);
-      transform-origin: top center;
+      transform: scale(1.12);         /* ✅ zoom ajustado a este tamaño */
+      transform-origin: top center;   /* ✅ centrado y tapa la barra inferior */
     }
 
     .hidden { display: none !important; }
@@ -157,6 +157,7 @@
           </div>
           <button id="logoutBtn" class="btn" style="background: linear-gradient(180deg,#ff7a7a,#ff5858);">Cerrar sesión</button>
         </div>
+        <!-- 🚀 Contenedor con zoom -->
         <div class="report-container">
           <iframe id="reportFrame" class="report"></iframe>
         </div>
@@ -200,15 +201,6 @@
       menu.style.display = 'block';
       welcomeMsg.textContent = `Bienvenido, ${userKey.charAt(0).toUpperCase() + userKey.slice(1)}`;
       reportFrame.src = REPORT_URLS[userKey];
-
-      // 👇 Forzar scroll horizontal al entrar en la pestaña de gráficas
-      setTimeout(() => {
-        window.scrollTo({
-          left: 5000,   // ajusta según el ancho que necesites
-          top: 0,
-          behavior: "smooth"
-        });
-      }, 300);
     }
 
     loginForm.addEventListener('submit', e => {
