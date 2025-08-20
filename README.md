@@ -20,9 +20,12 @@
     html, body {
       height: 100%;
       margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-family: system-ui, sans-serif;
       color: var(--text);
-      overflow-x: auto;   /* ✅ permite scroll horizontal */
+      overflow-x: auto; /* 👈 habilita scroll horizontal */
     }
 
     .bg {
@@ -40,8 +43,11 @@
     .wrap {
       position: relative;
       min-height: 100%;
+      display: grid;
+      place-items: center;
       padding: 24px;
-      width: 1920px;   /* ✅ ancho total de la página */
+      width: 100%;
+      max-width: 1920px;
       margin: 0 auto;
     }
 
@@ -50,7 +56,6 @@
       border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius);
       box-shadow: var(--shadow); backdrop-filter: blur(8px);
       padding: 28px;
-      margin: 0 auto;
     }
 
     .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
@@ -75,7 +80,7 @@
     .powered { margin-top: 15px; text-align: center; font-size: 0.85rem; color: var(--muted); }
 
     .menu {
-      display: none; padding: 24px; height: 100vh;
+      display: none; padding: 24px; width: 100%; height: 100vh;
     }
 
     .menu__inner {
@@ -87,7 +92,6 @@
       background: rgba(255,255,255,.08); padding: 12px 16px; border-radius: 16px;
     }
 
-    /* 🚀 Contenedor en 1920x1080 */
     .report-container {
       width: 1920px;
       height: 1080px;
@@ -103,7 +107,7 @@
       width: 1920px;
       height: 1080px;
       border: none;
-      transform: scale(1.12);        /* ✅ mantenido para tapar barra inferior */
+      transform: scale(1.12);
       transform-origin: top center;
     }
 
@@ -153,7 +157,6 @@
           </div>
           <button id="logoutBtn" class="btn" style="background: linear-gradient(180deg,#ff7a7a,#ff5858);">Cerrar sesión</button>
         </div>
-        <!-- 🚀 Contenedor con zoom -->
         <div class="report-container">
           <iframe id="reportFrame" class="report"></iframe>
         </div>
@@ -198,10 +201,14 @@
       welcomeMsg.textContent = `Bienvenido, ${userKey.charAt(0).toUpperCase() + userKey.slice(1)}`;
       reportFrame.src = REPORT_URLS[userKey];
 
-      // ✅ cuando cargue el iframe, movemos la página a la derecha
-      reportFrame.onload = () => {
-        window.scrollTo({ left: 500, top: 0, behavior: "instant" }); 
-      };
+      // 👇 Forzar scroll horizontal al entrar en la pestaña de gráficas
+      setTimeout(() => {
+        window.scrollTo({
+          left: 5000,   // ajusta según el ancho que necesites
+          top: 0,
+          behavior: "smooth"
+        });
+      }, 300);
     }
 
     loginForm.addEventListener('submit', e => {
