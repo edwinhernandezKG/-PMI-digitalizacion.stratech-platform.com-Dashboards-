@@ -76,16 +76,16 @@
 
     /* 🚀 Contenedor con medidas fijas */
     .report-container {
-      width: 1080px;   /* ajusta según el tamaño que viste correcto */
-      height: 1920px;
+      width: 1920px;   /* ajusta según el tamaño que viste correcto */
+      height: 1080px;
       overflow: hidden;
       margin: 0 auto;  /* centrado */
       position: relative;
     }
 
     iframe.report {
-      width: 1080px;
-      height: 1920px;
+      width: 1920px;
+      height: 1080px;
       border: none;
       transform: scale(1.15);        /* 🔍 mantiene tu zoom */
       transform-origin: top center;  /* desde arriba */
