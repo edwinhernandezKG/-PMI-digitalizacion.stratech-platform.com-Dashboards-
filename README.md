@@ -20,25 +20,25 @@
     html, body {
       height: 100%;
       margin: 0;
-      display: flex;              /* ✅ centrado de toda la página */
+      display: flex;
       justify-content: center;
       align-items: center;
       font-family: system-ui, sans-serif;
       color: var(--text);
     }
-
     .bg {
-      position: fixed; inset: 0;
+      position: fixed;
+      inset: 0;
       background-image: var(--bg-url);
       background-size: cover;
       background-position: center;
     }
     .bg::after {
       content: "";
-      position: absolute; inset: 0;
+      position: absolute;
+      inset: 0;
       background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.55));
     }
-
     .wrap {
       position: relative;
       min-height: 100%;
@@ -46,71 +46,109 @@
       place-items: center;
       padding: 24px;
       width: 100%;
-      max-width: 1920px;  /* ✅ ajustado al nuevo ancho */
+      max-width: 1920px;
       margin: 0 auto;
     }
-
     .card {
-      width: 100%; max-width: 480px; background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius);
-      box-shadow: var(--shadow); backdrop-filter: blur(8px);
+      width: 100%;
+      max-width: 480px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
       padding: 28px;
     }
-
-    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-    .brand__logo { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,.15); display: grid; place-items: center; font-weight: 700; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .brand__logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.15);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+    }
     .brand__title { font-weight: 700; }
     .muted { color: var(--muted); font-size: .95rem; }
-
-    .fields { display: grid; gap: 12px; margin-top: 18px; }
+    .fields {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
     label { font-size: .9rem; color: var(--muted); }
     input[type="text"], input[type="password"] {
-      width: 100%; padding: 14px; border-radius: 12px;
-      background: rgba(0,0,0,.25); color: var(--text); border: 1px solid rgba(255,255,255,.18);
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.18);
     }
-
     .btn {
-      padding: 14px 16px; border-radius: 12px; border: 0; cursor: pointer; font-weight: 700;
-      background: linear-gradient(180deg, #668bff, #4f7cff); color: white;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 700;
+      background: linear-gradient(180deg, #668bff, #4f7cff);
+      color: white;
     }
-
-    .error { margin-top: 10px; color: var(--danger); min-height: 1.2em; font-size: .92rem; }
-
-    .powered { margin-top: 15px; text-align: center; font-size: 0.85rem; color: var(--muted); }
-
+    .error {
+      margin-top: 10px;
+      color: var(--danger);
+      min-height: 1.2em;
+      font-size: .92rem;
+    }
+    .powered {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
     .menu {
-      display: none; padding: 24px; width: 100%; height: 100vh;
+      display: none;
+      padding: 24px;
+      width: 100%;
+      height: 100vh;
     }
-
     .menu__inner {
-      height: 100%; display: grid; grid-template-rows: auto 1fr; gap: 18px;
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 18px;
     }
-
     .topbar {
-      display: flex; justify-content: space-between; align-items: center;
-      background: rgba(255,255,255,.08); padding: 12px 16px; border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,.08);
+      padding: 12px 16px;
+      border-radius: 16px;
     }
-
     /* 🚀 Contenedor en 1920x1080 */
     .report-container {
       width: 1920px;
       height: 1080px;
       overflow: hidden;
       position: relative;
-      margin: 0 auto;  /* ✅ centrado */
+      margin: 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-
     iframe.report {
       width: 1920px;
       height: 1080px;
       border: none;
-      transform: scale(1.12);         /* ✅ zoom ajustado a este tamaño */
-      transform-origin: top center;   /* ✅ centrado y tapa la barra inferior */
+      display: block;
+      margin: 0 auto;
     }
-
     .hidden { display: none !important; }
   </style>
 </head>
@@ -157,7 +195,8 @@
           </div>
           <button id="logoutBtn" class="btn" style="background: linear-gradient(180deg,#ff7a7a,#ff5858);">Cerrar sesión</button>
         </div>
-        <!-- 🚀 Contenedor con zoom -->
+
+        <!-- 🚀 Contenedor con iframe -->
         <div class="report-container">
           <iframe id="reportFrame" class="report"></iframe>
         </div>
@@ -208,13 +247,11 @@
       errorBox.textContent = '';
       const user = document.getElementById('user').value.trim();
       const pass = document.getElementById('pass').value;
-
       const found = USERS.find(u => u.u === user && u.p === pass);
       if (!found) {
         errorBox.textContent = 'Usuario o contraseña incorrectos.';
         return;
       }
-
       if (remember.checked) login(found.key);
       showMenu(found.key);
     });
