@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Portal de Gráficas | SEVEN - OXXO - CIRCLEK</title>
   <style>
     :root {
@@ -74,19 +74,20 @@
       background: rgba(255,255,255,.08); padding: 12px 16px; border-radius: 16px;
     }
 
-    /* 🚀 Contenedor para aplicar zoom y esconder barra */
+    /* 🚀 Contenedor con medidas fijas */
     .report-container {
-      width: 100%;
-      height: 100%;
+      width: 1200px;   /* ajusta según el tamaño que viste correcto */
+      height: 800px;
       overflow: hidden;
+      margin: 0 auto;  /* centrado */
       position: relative;
     }
 
     iframe.report {
-      width: 100%;
-      height: 100%;
+      width: 1200px;
+      height: 800px;
       border: none;
-      transform: scale(1.15);        /* 🔍 Más zoom para tapar la franja */
+      transform: scale(1.15);        /* 🔍 mantiene tu zoom */
       transform-origin: top center;  /* desde arriba */
     }
 
