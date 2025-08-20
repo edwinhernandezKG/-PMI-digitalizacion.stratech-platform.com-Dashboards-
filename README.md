@@ -59,8 +59,6 @@
 
     .error { margin-top: 10px; color: var(--danger); min-height: 1.2em; font-size: .92rem; }
 
-    .powered { margin-top: 15px; text-align: center; font-size: 0.85rem; color: var(--muted); }
-
     .menu {
       display: none; padding: 24px; width: 100%; height: 100vh;
     }
@@ -74,20 +72,25 @@
       background: rgba(255,255,255,.08); padding: 12px 16px; border-radius: 16px;
     }
 
-    /* 🚀 Contenedor para aplicar zoom y esconder barra */
+    /* 📊 Contenedor responsivo para la gráfica */
     .report-container {
       width: 100%;
       height: 100%;
       overflow: hidden;
       position: relative;
+      border-radius: 12px;
+      background: #000;
     }
 
     iframe.report {
+      position: absolute;
+      top: -80px; /* recorta más la parte de abajo */
+      left: 0;
       width: 100%;
-      height: 100%;
+      height: calc(100% + 100px); /* da más altura para cubrir */
       border: none;
-      transform: scale(1.15);        /* 🔍 Más zoom para tapar la franja */
-      transform-origin: top center;  /* desde arriba */
+      transform: scale(1.05); /* hace zoom para esconder barra */
+      transform-origin: top center;
     }
 
     .hidden { display: none !important; }
@@ -101,7 +104,7 @@
       <div class="brand">
         <div class="brand__logo">S</div>
         <div>
-          <div class="brand__title">Portal de Gráficas — PHILIP MORRIS</div>
+          <div class="brand__title">Portal de Gráficas — Seven / Oxxo / CircleK</div>
           <div class="muted">Acceso privado para visualizar reportes</div>
         </div>
       </div>
@@ -119,7 +122,7 @@
         <label><input type="checkbox" id="remember" /> Mantener sesión</label>
         <button class="btn" type="submit">Entrar</button>
         <div id="error" class="error"></div>
-        <div class="powered">Powered by Stratech/KeepGo</div>
+        <p style="margin-top:10px; font-size:0.85rem; color:#aaa;">Powered by KeepGo</p>
       </form>
     </section>
 
@@ -136,7 +139,7 @@
           </div>
           <button id="logoutBtn" class="btn" style="background: linear-gradient(180deg,#ff7a7a,#ff5858);">Cerrar sesión</button>
         </div>
-        <!-- 🚀 Contenedor con zoom -->
+        <!-- Contenedor para la gráfica -->
         <div class="report-container">
           <iframe id="reportFrame" class="report"></iframe>
         </div>
@@ -146,9 +149,9 @@
 
   <script>
     const REPORT_URLS = {
-      seven: 'https://app.powerbi.com/view?r=eyJrIjoiYjFiMmM5ZWMtZDI0YS00Njg5LTkzNGUtYWFlOGZhYTNhODc4IiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9&pageName=05c1a881714a70e90340&chromeless=true',
-      oxxo: 'https://powerbi.com/oxxo&chromeless=true',
-      circlek: 'https://powerbi.com/circlek&chromeless=true'
+      seven: 'https://app.powerbi.com/view?r=eyJrIjoiYjFiMmM5ZWMtZDI0YS00Njg5LTkzNGUtYWFlOGZhYTNhODc4IiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9&pageName=05c1a881714a70e90340',
+      oxxo: 'https://powerbi.com/oxxo',
+      circlek: 'https://powerbi.com/circlek'
     };
 
     const USERS = [
