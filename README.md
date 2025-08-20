@@ -16,15 +16,14 @@
       --shadow: 0 10px 30px rgba(0,0,0,.35);
       --radius: 20px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; font-family: system-ui, sans-serif; color: var(--text); }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; font-family: system-ui, sans-serif; color: var(--text); }
 
     .bg {
       position: fixed; inset: 0;
       background-image: var(--bg-url);
       background-size: cover;
       background-position: center;
-      z-index: -1;
     }
     .bg::after {
       content: "";
@@ -32,23 +31,12 @@
       background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.55));
     }
 
-    .wrap { 
-      position: relative; 
-      min-height: 100%; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      padding: 24px; 
-    }
+    .wrap { position: relative; min-height: 100%; display: grid; place-items: center; padding: 24px; }
 
     .card {
-      width: 100%; 
-      max-width: 420px; 
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12); 
-      border-radius: var(--radius);
-      box-shadow: var(--shadow); 
-      backdrop-filter: blur(8px);
+      width: 100%; max-width: 480px; background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius);
+      box-shadow: var(--shadow); backdrop-filter: blur(8px);
       padding: 28px;
     }
 
@@ -67,7 +55,6 @@
     .btn {
       padding: 14px 16px; border-radius: 12px; border: 0; cursor: pointer; font-weight: 700;
       background: linear-gradient(180deg, #668bff, #4f7cff); color: white;
-      width: 100%;
     }
 
     .error { margin-top: 10px; color: var(--danger); min-height: 1.2em; font-size: .92rem; }
@@ -75,30 +62,20 @@
     .powered { margin-top: 15px; text-align: center; font-size: 0.85rem; color: var(--muted); }
 
     .menu {
-      display: none; 
-      width: 100%; 
-      height: 100vh;
-      padding: 0; 
-      margin: 0;
+      display: none; padding: 24px; width: 100%; height: 100vh;
     }
 
     .menu__inner {
-      height: 100%; 
-      display: flex; 
-      flex-direction: column; 
+      height: 100%; display: grid; grid-template-rows: auto 1fr; gap: 18px;
     }
 
     .topbar {
-      flex: 0 0 auto;
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center;
-      background: rgba(255,255,255,.08); 
-      padding: 12px 16px; 
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,.08); padding: 12px 16px; border-radius: 16px;
     }
 
+    /* 🚀 Contenedor para aplicar zoom y esconder barra */
     .report-container {
-      flex: 1 1 auto;
       width: 100%;
       height: 100%;
       overflow: hidden;
@@ -109,22 +86,11 @@
       width: 100%;
       height: 100%;
       border: none;
-      transform: scale(1.15);         /* ✅ Zoom para ocultar barra PowerBI */
-      transform-origin: top center;   /* Se aplica desde arriba */
+      transform: scale(1.15);        /* 🔍 Más zoom para tapar la franja */
+      transform-origin: top center;  /* desde arriba */
     }
 
     .hidden { display: none !important; }
-
-    /* 📱 Responsive ajustes móviles */
-    @media (max-width: 600px) {
-      .card { padding: 20px; }
-      .brand__title { font-size: 1rem; }
-      .btn { padding: 12px; font-size: 0.95rem; }
-      iframe.report { 
-        transform: scale(1.1);        /* Menos zoom en móvil */
-        transform-origin: top center;
-      }
-    }
   </style>
 </head>
 <body>
@@ -153,7 +119,7 @@
         <label><input type="checkbox" id="remember" /> Mantener sesión</label>
         <button class="btn" type="submit">Entrar</button>
         <div id="error" class="error"></div>
-        <div class="powered">Powered by KeepGo</div>
+        <div class="powered">Powered by Stratech/KeepGo</div>
       </form>
     </section>
 
@@ -168,8 +134,9 @@
               <div class="muted" id="welcomeMsg">Bienvenido</div>
             </div>
           </div>
-          <button id="logoutBtn" class="btn" style="background: linear-gradient(180deg,#ff7a7a,#ff5858); width:auto;">Cerrar sesión</button>
+          <button id="logoutBtn" class="btn" style="background: linear-gradient(180deg,#ff7a7a,#ff5858);">Cerrar sesión</button>
         </div>
+        <!-- 🚀 Contenedor con zoom -->
         <div class="report-container">
           <iframe id="reportFrame" class="report"></iframe>
         </div>
@@ -240,4 +207,3 @@
   </script>
 </body>
 </html>
-
