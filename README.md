@@ -1,7 +1,3 @@
-tengo el siguiente html
-
-ajusta la paguina a que se muestre a 1920x1080 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,11 +20,9 @@ ajusta la paguina a que se muestre a 1920x1080
     html, body {
       height: 100%;
       margin: 0;
-      display: flex;              /* ✅ centrado de toda la página */
-      justify-content: center;
-      align-items: center;
       font-family: system-ui, sans-serif;
       color: var(--text);
+      overflow-x: auto;   /* ✅ permite scroll horizontal */
     }
 
     .bg {
@@ -46,11 +40,8 @@ ajusta la paguina a que se muestre a 1920x1080
     .wrap {
       position: relative;
       min-height: 100%;
-      display: grid;
-      place-items: center;
       padding: 24px;
-      width: 100%;
-      max-width: 1920px;  /* ✅ ajustado al nuevo ancho */
+      width: 1920px;   /* ✅ ancho total de la página */
       margin: 0 auto;
     }
 
@@ -59,6 +50,7 @@ ajusta la paguina a que se muestre a 1920x1080
       border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius);
       box-shadow: var(--shadow); backdrop-filter: blur(8px);
       padding: 28px;
+      margin: 0 auto;
     }
 
     .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
@@ -83,7 +75,7 @@ ajusta la paguina a que se muestre a 1920x1080
     .powered { margin-top: 15px; text-align: center; font-size: 0.85rem; color: var(--muted); }
 
     .menu {
-      display: none; padding: 24px; width: 100%; height: 100vh;
+      display: none; padding: 24px; height: 100vh;
     }
 
     .menu__inner {
@@ -101,7 +93,7 @@ ajusta la paguina a que se muestre a 1920x1080
       height: 1080px;
       overflow: hidden;
       position: relative;
-      margin: 0 auto;  /* ✅ centrado */
+      margin: 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -111,8 +103,8 @@ ajusta la paguina a que se muestre a 1920x1080
       width: 1920px;
       height: 1080px;
       border: none;
-      transform: scale(1.12);         /* ✅ zoom ajustado a este tamaño */
-      transform-origin: top center;   /* ✅ centrado y tapa la barra inferior */
+      transform: scale(1.12);        /* ✅ mantenido para tapar barra inferior */
+      transform-origin: top center;
     }
 
     .hidden { display: none !important; }
@@ -205,6 +197,11 @@ ajusta la paguina a que se muestre a 1920x1080
       menu.style.display = 'block';
       welcomeMsg.textContent = `Bienvenido, ${userKey.charAt(0).toUpperCase() + userKey.slice(1)}`;
       reportFrame.src = REPORT_URLS[userKey];
+
+      // ✅ cuando cargue el iframe, movemos la página a la derecha
+      reportFrame.onload = () => {
+        window.scrollTo({ left: 500, top: 0, behavior: "instant" }); 
+      };
     }
 
     loginForm.addEventListener('submit', e => {
