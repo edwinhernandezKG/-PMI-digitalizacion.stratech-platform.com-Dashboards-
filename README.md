@@ -46,7 +46,7 @@
       place-items: center;
       padding: 24px;
       width: 100%;
-      max-width: 1300px;  /* ✅ evita que se desplace */
+      max-width: 1920px;  /* ✅ ajustado al nuevo ancho */
       margin: 0 auto;
     }
 
@@ -91,10 +91,10 @@
       background: rgba(255,255,255,.08); padding: 12px 16px; border-radius: 16px;
     }
 
-    /* 🚀 Contenedor con medidas fijas */
+    /* 🚀 Contenedor en 1920x1080 */
     .report-container {
-      width: 1300px;
-      height: 720px;
+      width: 1920px;
+      height: 1080px;
       overflow: hidden;
       position: relative;
       margin: 0 auto;  /* ✅ centrado */
@@ -104,11 +104,11 @@
     }
 
     iframe.report {
-      width: 1300px;
-      height: 720px;
+      width: 1920px;
+      height: 1080px;
       border: none;
-      transform: scale(1.20);        
-      transform-origin: top center;  /* ✅ mantiene centrado y tapa la barra inferior */
+      transform: scale(1.12);         /* ✅ zoom ajustado a este tamaño */
+      transform-origin: top center;   /* ✅ centrado y tapa la barra inferior */
     }
 
     .hidden { display: none !important; }
