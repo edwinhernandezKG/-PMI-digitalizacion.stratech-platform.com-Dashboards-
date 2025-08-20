@@ -77,7 +77,7 @@
     /* 🚀 Contenedor para aplicar zoom y esconder barra */
     .report-container {
       width: 100%;
-      height: 100%;
+      height: 100vh;   /* ✅ Siempre ocupa la pantalla completa */
       overflow: hidden;
       position: relative;
     }
