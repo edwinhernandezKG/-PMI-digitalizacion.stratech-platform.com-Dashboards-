@@ -111,16 +111,22 @@
       font-size: 0.85rem;
       color: var(--muted);
     }
+
+    /* 🔹 Menú ocupa toda la pantalla */
     .menu {
       display: none;
-      padding: 24px;
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 100vh;
+      height: 100%;
+      padding: 24px;
+      background: transparent;
     }
     .menu__inner {
       height: 100%;
-      display: grid;
-      grid-template-rows: auto 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 18px;
     }
     .topbar {
@@ -131,24 +137,21 @@
       padding: 12px 16px;
       border-radius: 16px;
     }
-    /* 🚀 Contenedor en 1920x1080 */
+
+    /* 🔹 Contenedor que ajusta la gráfica */
     .report-container {
-      width: 1920px;
-      height: 1080px;
-      overflow: hidden;
-      position: relative;
-      margin: 0 auto;
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow: hidden;
     }
     iframe.report {
-      width: 1920px;
-      height: 1080px;
+      width: 100%;
+      height: 100%;
       border: none;
-      display: block;
-      margin: 0 auto;
     }
+
     .hidden { display: none !important; }
   </style>
 </head>
@@ -265,3 +268,4 @@
   </script>
 </body>
 </html>
+
