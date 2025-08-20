@@ -1,3 +1,7 @@
+tengo el siguiente html
+
+ajusta la paguina a que se muestre a 1920x1080 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -91,24 +95,25 @@
       background: rgba(255,255,255,.08); padding: 12px 16px; border-radius: 16px;
     }
 
-/* 🚀 Contenedor fijo en 1920x1080 */
-.report-container {
-  width: 1920px;
-  height: 1080px;
-  position: relative;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
+    /* 🚀 Contenedor en 1920x1080 */
+    .report-container {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto;  /* ✅ centrado */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-/* El iframe ocupa exactamente el área sin escalado */
-iframe.report {
-  width: 1920px;
-  height: 1080px;
-  border: none;
-}
+    iframe.report {
+      width: 1920px;
+      height: 1080px;
+      border: none;
+      transform: scale(1.12);         /* ✅ zoom ajustado a este tamaño */
+      transform-origin: top center;   /* ✅ centrado y tapa la barra inferior */
+    }
 
     .hidden { display: none !important; }
   </style>
@@ -227,4 +232,3 @@ iframe.report {
   </script>
 </body>
 </html>
-
