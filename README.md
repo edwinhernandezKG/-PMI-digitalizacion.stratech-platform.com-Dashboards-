@@ -74,20 +74,20 @@
       background: rgba(255,255,255,.08); padding: 12px 16px; border-radius: 16px;
     }
 
-    /* 🚀 Contenedor con medidas fijas */
+    /* 🚀 Contenedor con medidas fijas en PX */
     .report-container {
-      width: 1920px;   /* ajusta según el tamaño que viste correcto */
-      height: 1080px;
+      width: 1300px;   /* ajusta al tamaño deseado */
+      height: 720px;   /* ajusta al tamaño deseado */
       overflow: hidden;
-      margin: 0 auto;  /* centrado */
       position: relative;
+      margin: 0 auto;  /* centrado */
     }
 
     iframe.report {
-      width: 1920px;
-      height: 1080px;
+      width: 1300px;
+      height: 720px;
       border: none;
-      transform: scale(1.15);        /* 🔍 mantiene tu zoom */
+      transform: scale(1.20);        /* 🔍 Más zoom para tapar la franja */
       transform-origin: top center;  /* desde arriba */
     }
 
