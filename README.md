@@ -109,17 +109,14 @@
       color: var(--muted);
     }
 
-    /* 🔹 Menú ocupa toda la pantalla */
+    /* Menú */
     .menu {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: transparent;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
     }
     .menu__inner {
       height: 100%;
@@ -147,8 +144,6 @@
       color: white;
       border: 1px solid rgba(255,255,255,.2);
     }
-
-    /* 🔹 Contenedor que ajusta la gráfica */
     .report-container {
       flex: 1;
       overflow: hidden;
@@ -160,14 +155,10 @@
       border: none;
       display: block;
     }
-
-    /* 🔹 Overlay inferior para ocultar barra Power BI */
     .overlay-bottom {
       position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 113px; /* altura ajustada */
+      left: 0; bottom: 0;
+      width: 100%; height: 60px;
       background-image: var(--bg-url);
       background-size: cover;
       background-position: center;
@@ -175,12 +166,9 @@
     }
     .overlay-bottom::after {
       content: "";
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: rgba(0,0,0,.45);
     }
-
-    /* 🔹 Splash de carga */
     .splash {
       position: fixed;
       inset: 0;
@@ -195,8 +183,7 @@
     }
     .splash::after {
       content: "";
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: rgba(0,0,0,.65);
     }
     .splash-content {
@@ -209,8 +196,7 @@
       border: 6px solid rgba(255,255,255,0.2);
       border-top: 6px solid white;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      width: 60px; height: 60px;
       margin: 0 auto 15px;
       animation: spin 1s linear infinite;
     }
@@ -235,7 +221,7 @@
       <div class="brand">
         <div class="brand__logo">S</div>
         <div>
-          <div class="brand__title">Portal de Gráficas — PHILIP MORRIS</div>
+          <div class="brand__title">Portal de Gráficas — SEVEN / OXXO / CIRCLEK</div>
           <div class="muted">Acceso privado para visualizar reportes</div>
         </div>
       </div>
@@ -257,7 +243,7 @@
       </form>
     </section>
 
-    <!-- MENU CON GRAFICA -->
+    <!-- MENU -->
     <section id="menu" class="menu">
       <div class="menu__inner">
         <div class="topbar">
@@ -269,7 +255,6 @@
                 <div class="muted" id="welcomeMsg">Bienvenido</div>
               </div>
             </div>
-            <!-- Selector solo visible para admin -->
             <select id="reportSelector" class="hidden">
               <option value="seven">Seven Eleven</option>
               <option value="oxxo">Oxxo</option>
@@ -279,10 +264,8 @@
           <button id="logoutBtn" class="btn" style="background: linear-gradient(180deg,#ff7a7a,#ff5858);">Cerrar sesión</button>
         </div>
 
-        <!-- 🚀 Contenedor con iframe -->
         <div class="report-container">
           <iframe id="reportFrame" class="report"></iframe>
-          <!-- Overlay solo aparece cuando está el menú -->
           <div class="overlay-bottom"></div>
         </div>
       </div>
@@ -300,13 +283,13 @@
 
   <script>
     const REPORT_URLS = {
-      seven: 'https://app.powerbi.com/view?r=eyJrIjoiYjFiMmM5ZWMtZDI0YS00Njg5LTkzNGUtYWFlOGZhYTNhODc4IiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9&pageName=05c1a881714a70e90340&chromeless=true',
+      seven: 'https://app.powerbi.com/view?r=eyJrIjoiYjFiMmM5ZWMtZDI0YS00Njg5LTkzNGUtYWFlOGZhYTNhODc4IiwidCI6ImIxM2NlNGM5LTJiZTYtNDg0NC04Y2Q5LTYwOTcyMGFmYWY5YiJ9&pageName=05c1a881714a70e90340',
       oxxo: 'https://powerbi.com/oxxo&chromeless=true',
       circlek: 'https://powerbi.com/circlek&chromeless=true'
     };
 
     const USERS = [
-      { u: 'Seven eleven', p: 'Seven2025!', key: 'seven' },
+      { u: 'Seven', p: 'Seven2025!', key: 'seven' },
       { u: 'Oxxo', p: 'Oxxo2025!', key: 'oxxo' },
       { u: 'CircleK', p: 'CircleK2025!', key: 'circlek' },
       { u: 'admin', p: 'admin', key: 'admin' }
@@ -322,17 +305,15 @@
     const reportSelector = document.getElementById('reportSelector');
     const splash = document.getElementById('splash');
     const countdownEl = document.getElementById('countdown');
-    const TOKEN_KEY = 'portal_token_v3';
+    const TOKEN_KEY = 'seven_portal_token_v3';
 
     function login(userKey) {
       localStorage.setItem(TOKEN_KEY, JSON.stringify({ userKey, at: Date.now() }));
     }
-
     function logout() {
       localStorage.removeItem(TOKEN_KEY);
       location.reload();
     }
-
     function showMenu(userKey) {
       loginCard.classList.add('hidden');
       menu.style.display = 'block';
@@ -345,8 +326,6 @@
         reportSelector.classList.add('hidden');
         reportFrame.src = REPORT_URLS[userKey];
       }
-
-      // 🚀 Mostrar splash con retroceso
       splash.classList.remove('hidden');
       let counter = 5;
       countdownEl.textContent = `Cargando en ${counter}...`;
@@ -358,12 +337,10 @@
           clearInterval(interval);
         }
       }, 1000);
-
       setTimeout(() => {
         splash.classList.add('hidden');
       }, 5000);
     }
-
     loginForm.addEventListener('submit', e => {
       e.preventDefault();
       errorBox.textContent = '';
@@ -377,14 +354,11 @@
       if (remember.checked) login(found.key);
       showMenu(found.key);
     });
-
     document.getElementById('logoutBtn').addEventListener('click', logout);
-
     reportSelector.addEventListener('change', () => {
       const key = reportSelector.value;
       reportFrame.src = REPORT_URLS[key];
     });
-
     try {
       const saved = JSON.parse(localStorage.getItem(TOKEN_KEY));
       if (saved?.userKey) showMenu(saved.userKey);
