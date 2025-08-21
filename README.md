@@ -20,9 +20,6 @@
     html, body {
       height: 100%;
       margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       font-family: system-ui, sans-serif;
       color: var(--text);
     }
@@ -120,36 +117,67 @@
       left: 0;
       width: 100%;
       height: 100%;
-      padding: 24px;
       background: transparent;
+      margin: 0;
+      padding: 0;
     }
     .menu__inner {
       height: 100%;
       display: flex;
       flex-direction: column;
-      gap: 18px;
     }
     .topbar {
+      flex-shrink: 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: rgba(255,255,255,.08);
       padding: 12px 16px;
-      border-radius: 16px;
+      border-radius: 0;
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    select#reportSelector {
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(0,0,0,.4);
+      color: white;
+      border: 1px solid rgba(255,255,255,.2);
     }
 
     /* 🔹 Contenedor que ajusta la gráfica */
     .report-container {
       flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       overflow: hidden;
+      position: relative;
     }
     iframe.report {
       width: 100%;
       height: 100%;
       border: none;
+      display: block;
+    }
+
+    /* 🔹 Overlay inferior para ocultar barra Power BI */
+    .overlay-bottom {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 110px; /* aumentado 3px */
+      background-image: var(--bg-url);
+      background-size: cover;
+      background-position: center;
+      z-index: 999;
+    }
+    .overlay-bottom::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.45); /* 🔹 Opacidad extra */
     }
 
     .hidden { display: none !important; }
@@ -189,12 +217,20 @@
     <section id="menu" class="menu">
       <div class="menu__inner">
         <div class="topbar">
-          <div class="brand">
-            <div class="brand__logo">S</div>
-            <div>
-              <div class="brand__title">Panel de Gráficas</div>
-              <div class="muted" id="welcomeMsg">Bienvenido</div>
+          <div class="topbar-left">
+            <div class="brand">
+              <div class="brand__logo">S</div>
+              <div>
+                <div class="brand__title">Panel de Gráficas</div>
+                <div class="muted" id="welcomeMsg">Bienvenido</div>
+              </div>
             </div>
+            <!-- Selector solo visible para admin -->
+            <select id="reportSelector" class="hidden">
+              <option value="seven">Seven Eleven</option>
+              <option value="oxxo">Oxxo</option>
+              <option value="circlek">CircleK</option>
+            </select>
           </div>
           <button id="logoutBtn" class="btn" style="background: linear-gradient(180deg,#ff7a7a,#ff5858);">Cerrar sesión</button>
         </div>
@@ -202,6 +238,8 @@
         <!-- 🚀 Contenedor con iframe -->
         <div class="report-container">
           <iframe id="reportFrame" class="report"></iframe>
+          <!-- Overlay solo aparece cuando está el menú -->
+          <div class="overlay-bottom"></div>
         </div>
       </div>
     </section>
@@ -217,7 +255,8 @@
     const USERS = [
       { u: 'Seven eleven', p: 'Seven2025!', key: 'seven' },
       { u: 'Oxxo', p: 'Oxxo2025!', key: 'oxxo' },
-      { u: 'CircleK', p: 'CircleK2025!', key: 'circlek' }
+      { u: 'CircleK', p: 'CircleK2025!', key: 'circlek' },
+      { u: 'admin', p: 'admin', key: 'admin' } // 🔹 Nuevo usuario admin
     ];
 
     const loginForm = document.getElementById('loginForm');
@@ -227,6 +266,7 @@
     const remember = document.getElementById('remember');
     const welcomeMsg = document.getElementById('welcomeMsg');
     const reportFrame = document.getElementById('reportFrame');
+    const reportSelector = document.getElementById('reportSelector');
     const TOKEN_KEY = 'portal_token_v3';
 
     function login(userKey) {
@@ -241,8 +281,15 @@
     function showMenu(userKey) {
       loginCard.classList.add('hidden');
       menu.style.display = 'block';
-      welcomeMsg.textContent = `Bienvenido, ${userKey.charAt(0).toUpperCase() + userKey.slice(1)}`;
-      reportFrame.src = REPORT_URLS[userKey];
+      if (userKey === 'admin') {
+        welcomeMsg.textContent = "Bienvenido, Administrador";
+        reportSelector.classList.remove('hidden');
+        reportFrame.src = REPORT_URLS.seven; // default
+      } else {
+        welcomeMsg.textContent = `Bienvenido, ${userKey.charAt(0).toUpperCase() + userKey.slice(1)}`;
+        reportSelector.classList.add('hidden');
+        reportFrame.src = REPORT_URLS[userKey];
+      }
     }
 
     loginForm.addEventListener('submit', e => {
@@ -261,6 +308,11 @@
 
     document.getElementById('logoutBtn').addEventListener('click', logout);
 
+    reportSelector.addEventListener('change', () => {
+      const key = reportSelector.value;
+      reportFrame.src = REPORT_URLS[key];
+    });
+
     try {
       const saved = JSON.parse(localStorage.getItem(TOKEN_KEY));
       if (saved?.userKey) showMenu(saved.userKey);
@@ -268,4 +320,3 @@
   </script>
 </body>
 </html>
-
