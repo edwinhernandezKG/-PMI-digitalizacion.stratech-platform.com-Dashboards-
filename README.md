@@ -239,7 +239,7 @@
         <label><input type="checkbox" id="remember" /> Mantener sesión</label>
         <button class="btn" type="submit">Entrar</button>
         <div id="error" class="error"></div>
-        <div class="powered">Powered by Stratech/KeepGo</div>
+        <div class="powered">Powered by Stratech / KeepGo</div>
       </form>
     </section>
 
