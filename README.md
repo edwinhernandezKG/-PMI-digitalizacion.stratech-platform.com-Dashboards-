@@ -221,7 +221,7 @@
       <div class="brand">
         <div class="brand__logo">S</div>
         <div>
-          <div class="brand__title">Portal de Gráficas — SEVEN / OXXO / CIRCLEK</div>
+          <div class="brand__title">Portal de Gráficas — PHILIP MORRIS</div>
           <div class="muted">Acceso privado para visualizar reportes</div>
         </div>
       </div>
