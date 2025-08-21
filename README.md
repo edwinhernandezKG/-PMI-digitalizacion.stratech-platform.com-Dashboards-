@@ -167,7 +167,7 @@
       left: 0;
       bottom: 0;
       width: 100%;
-      height: 110px; /* aumentado 3px */
+      height: 113px; /* altura ajustada */
       background-image: var(--bg-url);
       background-size: cover;
       background-position: center;
@@ -177,9 +177,53 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,.45); /* 🔹 Opacidad extra */
+      background: rgba(0,0,0,.45);
     }
 
+    /* 🔹 Splash de carga */
+    .splash {
+      position: fixed;
+      inset: 0;
+      background-image: var(--bg-url);
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .splash::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+    }
+    .splash-content {
+      position: relative;
+      z-index: 2001;
+      text-align: center;
+      color: white;
+    }
+    .loader {
+      border: 6px solid rgba(255,255,255,0.2);
+      border-top: 6px solid white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 15px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .countdown {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #fff;
+    }
     .hidden { display: none !important; }
   </style>
 </head>
@@ -243,6 +287,15 @@
         </div>
       </div>
     </section>
+
+    <!-- SPLASH -->
+    <div id="splash" class="splash hidden">
+      <div class="splash-content">
+        <div class="loader"></div>
+        <div>Cargando dashboard...</div>
+        <div id="countdown" class="countdown"></div>
+      </div>
+    </div>
   </main>
 
   <script>
@@ -256,7 +309,7 @@
       { u: 'Seven eleven', p: 'Seven2025!', key: 'seven' },
       { u: 'Oxxo', p: 'Oxxo2025!', key: 'oxxo' },
       { u: 'CircleK', p: 'CircleK2025!', key: 'circlek' },
-      { u: 'admin', p: 'admin', key: 'admin' } // 🔹 Nuevo usuario admin
+      { u: 'admin', p: 'admin', key: 'admin' }
     ];
 
     const loginForm = document.getElementById('loginForm');
@@ -267,6 +320,8 @@
     const welcomeMsg = document.getElementById('welcomeMsg');
     const reportFrame = document.getElementById('reportFrame');
     const reportSelector = document.getElementById('reportSelector');
+    const splash = document.getElementById('splash');
+    const countdownEl = document.getElementById('countdown');
     const TOKEN_KEY = 'portal_token_v3';
 
     function login(userKey) {
@@ -284,12 +339,29 @@
       if (userKey === 'admin') {
         welcomeMsg.textContent = "Bienvenido, Administrador";
         reportSelector.classList.remove('hidden');
-        reportFrame.src = REPORT_URLS.seven; // default
+        reportFrame.src = REPORT_URLS.seven;
       } else {
         welcomeMsg.textContent = `Bienvenido, ${userKey.charAt(0).toUpperCase() + userKey.slice(1)}`;
         reportSelector.classList.add('hidden');
         reportFrame.src = REPORT_URLS[userKey];
       }
+
+      // 🚀 Mostrar splash con retroceso
+      splash.classList.remove('hidden');
+      let counter = 5;
+      countdownEl.textContent = `Cargando en ${counter}...`;
+      const interval = setInterval(() => {
+        counter--;
+        if (counter > 0) {
+          countdownEl.textContent = `Cargando en ${counter}...`;
+        } else {
+          clearInterval(interval);
+        }
+      }, 1000);
+
+      setTimeout(() => {
+        splash.classList.add('hidden');
+      }, 5000);
     }
 
     loginForm.addEventListener('submit', e => {
